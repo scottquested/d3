@@ -19,10 +19,10 @@ const Bars = ({ data, height, scaleX, scaleY }) => {
 	);
 };
 
-const BarChart = ({ data, width = 500, height = 300 }) => {
-	const margin = { top: 10, right: 0, bottom: 20, left: 30 };
-	const newWidth = width - margin.left - margin.right;
-	const newHeight = height - margin.top - margin.bottom;
+const BarChart = ({ data, width, height }) => {
+	const margin = { top: 10, right: 0, bottom: 30, left: 30 };
+	const newWidth = width || 500 - margin.left - margin.right;
+	const newHeight = height || 300 - margin.top - margin.bottom;
 
 	const scaleX = scaleBand()
 		.domain(data.map(({ label }) => label))
@@ -32,11 +32,11 @@ const BarChart = ({ data, width = 500, height = 300 }) => {
 
 	return (
 		<svg
-			viewBox={`0 0 ${newWidth} ${newHeight + margin.bottom * 2}`}
-			style={{
-				width: "100%",
-				aspectRatio: `${newWidth}/${newHeight + margin.bottom * 2}`,
-			}}
+			width="100%"
+			height="100%"
+			viewBox={`0 0 ${newWidth + margin.left + margin.right} ${
+				newHeight + margin.top + margin.bottom
+			}`}
 		>
 			<g transform={`translate(${margin.left}, ${margin.top})`}>
 				<AxisBottom scale={scaleX} transform={`translate(0, ${newHeight})`} />
